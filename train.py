@@ -1,3 +1,5 @@
+from tqdm import tqdm
+
 from Configs.trainConf import configs
 from data.dataset import TrainLoader
 from Nets.model import Model
@@ -82,9 +84,11 @@ class Trainer(object):
         widgets = ['Progress: ', Percentage(), ' ', Bar('#'), ' ', Timer(), ' ', ETA()]
         progress = ProgressBar(widgets=widgets, maxval=10 * len(self.trainloader)).start()
 
-        for step, (ims, texts, *_) in enumerate(self.trainloader):
+        for step,data in tqdm(enumerate(self.trainloader)):
 
             # prepare data
+            ims = data["image"]
+            texts=data["label"]
             ims = ims.to(self.device)  # [B, 3, 64, 256]
             targets = self.converter.encode(texts).to(self.device)  # [B, L]
 
@@ -112,6 +116,9 @@ class Trainer(object):
 
             progress.update(10 * step + 1)
             step += 1
+            if step % 5000 == 0:
+                savename = os.path.join(self.savedir, 'm_epoch{}_{}.pth'.format(epoch + 1, step))
+                self.savemodel(savename)
         progress.finish()
 
         return total_loss / len(self.trainloader)

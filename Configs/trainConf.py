@@ -3,13 +3,16 @@ from easydict import EasyDict as edict
 configs = edict()
 
 # ---- training
-configs['image_dir'] = '/home/yrj/Dataset/SceneText/English/'
+configs['image_dir'] = ["/nlsasfs/home/ai4bharat/shubhamr/recognition-dataset/hindi/training/MJ/MJ_test",
+  "/nlsasfs/home/ai4bharat/shubhamr/recognition-dataset/hindi/training/MJ/MJ_train",
+  "/nlsasfs/home/ai4bharat/shubhamr/recognition-dataset/hindi/training/ST"]
+
 configs['train_list'] = '/home/yrj/Dataset/SceneText/English/Synth.txt'
 configs['savedir'] = './models'
 configs['imgH'] = 64
 configs['imgW'] = 256
 
-configs['alphabet'] = 'data/alphabet_en.txt'
+configs['alphabet'] = 'data/alphabet_hi.txt'
 
 f = open(configs.alphabet, 'r')
 l = f.readline().rstrip()
