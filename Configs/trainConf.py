@@ -31,8 +31,8 @@ configs['lr_gammas'] = [0.2, 0.1, 0.1]
 configs['weight_decay'] = 0.
 
 configs['aug_prob'] = 0.3
-configs['continue_train'] = False
-configs['continue_path'] = ''
+configs['continue_train'] = True
+configs['continue_path'] = './models/m_epoch1_22000.pth'
 configs['displayInterval'] = 1000
 
 # ---- model

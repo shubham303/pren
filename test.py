@@ -1,3 +1,5 @@
+from tqdm import tqdm
+
 from Nets.model import Model
 from Utils.utils import *
 from Configs.testConf import configs
@@ -102,9 +104,12 @@ class Tester(object):
 
         self.model.eval()
         with torch.no_grad():
-
-            for step, (ims, texts, *_) in enumerate(self.testloader):
-
+    
+            for step, data in tqdm(enumerate(self.testloader)):
+        
+                # prepare data
+                ims = data["image"]
+                texts = data["label"]
                 ims = ims.to(self.device)
                 logits = self.model(ims)  # [B, L, n_class]
                 preds = logits.argmax(2)  # [B, L]

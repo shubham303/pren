@@ -116,7 +116,7 @@ class Trainer(object):
 
             progress.update(10 * step + 1)
             step += 1
-            if step % 5000 == 0:
+            if step % 2000 == 0:
                 savename = os.path.join(self.savedir, 'm_epoch{}_{}.pth'.format(epoch + 1, step))
                 self.savemodel(savename)
         progress.finish()
